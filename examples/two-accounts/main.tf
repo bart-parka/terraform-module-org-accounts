@@ -2,15 +2,15 @@
 # Organisation accounts
 #####################################################################################
 module "aws-account" {
-  source              = "../../"
+  source              = "github.com/bart-parka/terraform-module-org-accounts.git"
 
   billing_access     = "ALLOW" #This needs to be allow to allow role-switch users to leave an org
   account_map        = {
     account_2_name = {
-        email = "bartparka+demo3@gmail.com"
+        email = "bartparka+demo@gmail.com"
         tags  = {
           account_number = "account_2"
-          type           = "NonProd"
+          type           = "Test"
         }
       }
   }
@@ -29,6 +29,6 @@ module "assume-role-group" {
   name = "OrganisationAdmins"
   role_arns = [
     for account in module.aws-account.arn_id_map:
-    "arn:aws:iam::${account}:role/OrganizationAccountAccessRole" #note role name would have to change if you specify it.
+    "arn:aws:iam::${account}:role/OrganizationAccountAccessRole"
   ]
 }

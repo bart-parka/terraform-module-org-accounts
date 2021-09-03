@@ -22,6 +22,10 @@ resource "aws_organizations_account" "accounts" {
     ignore_changes = [role_name]
   }
 
+  depends_on = [
+    aws_organizations_organization.org,
+  ]
+
 }
 
 output "arn_id_map" {
